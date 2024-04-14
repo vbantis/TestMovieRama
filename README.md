@@ -1,10 +1,12 @@
 This is an Simple Movie Rama app which was created for an interview process.
 
 Steps to run the app is:
-1)Download PHPStorm and install it
+1)Download PHPStorm and install it 
 2)Install latest version of mysql
 3)download and install aparch server and PHP 8.2 or use XAMMP
-4) Create database named "moviesDB" and execure the following script
+4) Setup PHPStorm to listen to PHP or xamp in folder bin/php.exe
+5) Download and install PHPUnit https://phpunit.de/index.html and setup IDE accordingly to instructions
+6) Create database named "moviesDB" and execure the following script
 
 -- moviesdb.movies definition
 
@@ -49,4 +51,4 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
-5) Run the app on localhost http://localhost:63342/TestMovieRama/index.php
+7) Run the app on localhost http://localhost:63342/TestMovieRama/index.php
