@@ -1,35 +1,52 @@
-# Bulma Frontend Preset For Laravel 7 and Up
+This is an Simple Movie Rama app which was created for an interview process.
 
-Bulma Frontend Preset For Laravel Framework 7 and Up
+Steps to run the app is:
+1)Download PHPStorm and install it
+2)Install latest version of mysql
+3)download and install aparch server and PHP 8.2 or use XAMMP
+4) Create database named "moviesDB" and execure the following script
 
-*Current version*: **Bulma ^v0.8.0** + **Bulma Extensions ^v6.2.7**
+-- moviesdb.movies definition
 
-## Install
-Install this preset via `composer require laravel-7-frontend-presets/bulma`.
+CREATE TABLE `movies` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `user_id` int NOT NULL,
+  `date_added` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `likes` int DEFAULT '0',
+  `hates` int DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `movies_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-and follow instructions below.
+-- moviesdb.user_votes definition
 
-## Usage
-1. Fresh install Laravel 7 (and up) and `cd` to your app.
-2. Install this preset via `composer require laravel-7-frontend-presets/bulma`. No need to register the service provider. Laravel 5.5 & up can auto detect the package.
-3. Use `php artisan ui bulma` for basic Bulma preset. **OR** Use `php artisan ui bulma --auth` for basic preset, Auth route entry and Bulma Auth views in one go.
-4. `npm install`
-5. `npm run dev`
-6. `npm run dev` will give you an error: vertical-align: middle;
-7. go to node_modules then bulma-extension then bulma-slider then sass and edit the index.sass at line 86 delete the ; you only need vertical-align: middle and same with line 91 delete the ;
-8. `npm run dev` it should works now.
-9. Configure your favorite database (mysql, sqlite etc.)
-10. `php artisan migrate` to create basic user tables.
-11. `php artisan serve` (or equivalent) to run server and test preset.
+CREATE TABLE `user_votes` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int DEFAULT NULL,
+  `movie_id` int DEFAULT NULL,
+  `vote` enum('like','hate') DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `movie_id` (`movie_id`),
+  CONSTRAINT `user_votes_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `user_votes_ibfk_2` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-## Bulma Pagination Template
-1. Upto Laravel 5.6 - Vendor publish and replace the code from here [default.blade.php](https://gist.github.com/Laraveldeep/0797c5a4079e3a2a0ba5b2b0e98f0357)
-1. Laravel 5.7 and up - Vendor publish and replace the code from here [bootstrap-4.blade.php](https://gist.github.com/Laraveldeep/362490aead2fc4b2fd15c3aae24254cf)
+-- moviesdb.users definition
 
-## Bulma Extensions
-1. It is a set of missing [Bulma.io](https://bulma.io/) functionalities in the form of extensions. More info at [https://wikiki.github.io/](https://wikiki.github.io/)
-2. Customize `bulma.sass`, `bulma-extensions.sass`, `bulma-extensions.js` and `app.js` as needed.
+CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-## Screenshots
-![Bulma login screen](/screenshots/Laravel_7_bulma_frontend.jpg)
-![Bulma login screen](/screenshots/bulma_login_screen.jpg)
+
+5) Run the app on localhost http://localhost:63342/TestMovieRama/index.php
