@@ -2,17 +2,14 @@
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    // User is not logged in, handle this case accordingly (e.g., redirect to login page)
     header("Location: /login.php"); // Adjust the path if needed
     exit();
 }
 
 require_once '../../controllers/UserMovieController.php';
 
-// Get the user ID from the session
 $userId = $_SESSION['user_id'];
 
-// Instantiate the controller and get user movies
 $controller = new UserMovieController();
 $movies = $controller->getUserMovies($userId);
 ?>

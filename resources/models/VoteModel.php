@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../database/db.php'; // Adjust the path as needed
+require_once __DIR__ . '/../../database/db.php';
 
 class VoteModel {
     public function hasUserVoted($userId, $movieId, $voteType) {
@@ -30,7 +30,6 @@ class VoteModel {
     public function addVote($userId, $movieId, $voteType) {
         global $conn;
 
-        // Insert a new record into the user_votes table
         $stmt = $conn->prepare("INSERT INTO user_votes (user_id, movie_id, vote) VALUES (?, ?, ?)");
         $stmt->bind_param("iis", $userId, $movieId, $voteType);
         $stmt->execute();

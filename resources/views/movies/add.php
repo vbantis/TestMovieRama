@@ -14,18 +14,14 @@ require_once '../../controllers/AddMovieController.php';
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get form data and sanitize inputs
     $title = htmlspecialchars($_POST['title']);
     $description = htmlspecialchars($_POST['description']);
 
-    // Get the user ID from the session
     $userId = $_SESSION['user_id'];
 
-    // Instantiate the controller and add the movie
     $controller = new AddMovieController();
     $controller->addMovie($title, $description, $userId);
 
-    // Redirect the user after processing the form
     header("Location: ./../../../index.php"); // Redirect to success page or homepage
     exit;
 }

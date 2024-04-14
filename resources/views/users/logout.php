@@ -1,12 +1,9 @@
 <?php
 require_once '../../controllers/LogoutController.php';
 
-// Instantiate the controller
 $logoutController = new LogoutController();
 
-// Check if the logout button is clicked
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
-    // Logout the user
     $logoutController->logoutUser();
 }
 

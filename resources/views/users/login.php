@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Check if the user is already logged in, redirect to home page if they are
 if (isset($_SESSION['user_id'])) {
     header("Location: ./../../../index.php");
     exit;
@@ -10,23 +9,18 @@ if (isset($_SESSION['user_id'])) {
 require_once '../../controllers/LoginController.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Validate form data
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $password = $_POST['password'];
 
-    // Instantiate the controller and attempt to login
     $loginController = new LoginController();
     $userId = $loginController->loginUser($email, $password);
 
     if ($userId) {
-        // Password is correct, create session for the user
         $_SESSION['user_id'] = $userId;
 
-        // Redirect to home page
         header("Location: ./../../../index.php");
         exit;
     } else {
-        // Password is incorrect or user not found
         $error = "Invalid email or password. Please try again.";
     }
 }

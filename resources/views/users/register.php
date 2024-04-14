@@ -1,10 +1,8 @@
 <?php
 require_once '../../controllers/RegisterController.php';
 
-// Instantiate the controller
 $registerController = new RegisterController();
 
-// Initialize error variable
 $error = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../database/db.php'; // Adjust the path as needed
+require_once __DIR__ . '/../../database/db.php';
 
 class LoginModel {
     public function loginUser($email, $password) {
@@ -23,7 +23,6 @@ class LoginModel {
             }
         }
 
-        // User not found or password incorrect
         return false;
     }
 }
