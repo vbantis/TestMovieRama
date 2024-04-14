@@ -1,18 +1,14 @@
 <?php
 session_start();
 
-// Check if the user is logged in
 $loggedIn = isset($_SESSION['user_id']);
 
-// Database connection
 require_once './database/db.php'; // Adjust the path as needed
 
-// Function to sanitize input
 function sanitize_input($data) {
     return htmlspecialchars(stripslashes(trim($data)));
 }
 
-// Function to get the user's full name from the database
 function getUserFullName($userId, $conn) {
     $stmt = $conn->prepare("SELECT name FROM users WHERE id = ?");
     $stmt->bind_param("i", $userId);
@@ -26,20 +22,16 @@ function getUserFullName($userId, $conn) {
     }
 }
 
-// Get the user's full name if logged in
 $userFullName = '';
 if ($loggedIn && isset($_SESSION['user_id'])) {
     $userFullName = getUserFullName($_SESSION['user_id'], $conn);
 }
 
-// Set the welcome message
 $welcomeMessage = $loggedIn ? "Welcome back, $userFullName" : "Welcome to MovieRama";
 
-// Set default sorting order
 $sort = isset($_GET['sort']) ? $_GET['sort'] : 'date_added';
 $sortOptions = ['date_added', 'likes', 'hates'];
 
-// Validate sorting order
 if (!in_array($sort, $sortOptions)) {
     $sort = 'date_added'; // Default to date_added if invalid option is provided
 }
